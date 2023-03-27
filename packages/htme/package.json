@@ -1,0 +1,16 @@
+{
+  "name": "htme",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "tsc --watch",
+    "build": "tsc",
+    "lint": "eslint ./src"
+  },
+  "author": "Michael Jach",
+  "license": "ISC"
+}
