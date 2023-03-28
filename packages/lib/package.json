@@ -1,14 +1,15 @@
 {
   "name": "htme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "dist/index",
+  "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
-    "start": "tsc --watch",
-    "build": "tsc",
+    "start": "rollup -c --watch",
+    "build": "rollup -c",
     "lint": "eslint ./src"
   },
   "author": "Michael Jach",

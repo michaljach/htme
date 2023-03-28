@@ -4,7 +4,7 @@ type RenderOutput = {
   eventHandlers: EventHandlers;
 };
 type EventHandler = () => void;
-type Node = Element | ChildNode | undefined;
+type Node = Element | ChildNode | ShadowRoot | undefined | null;
 type Expression = string | number | string[] | Element[] | (() => void);
 
 export function html(strings: string[], ...values: Expression[]): RenderOutput {
@@ -44,6 +44,9 @@ export class Element extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
+  didRender() {}
+  didUpdate(props: { [key: string]: unknown }) {}
+
   render(props: { [key: string]: unknown }): RenderOutput {
     throw Error(`render() method not implemented. props: ${props}`);
   }
@@ -65,6 +68,7 @@ export class Element extends HTMLElement {
       nodes.forEach((node, index) =>
         this.__compareNodes(prev.shadowRoot?.childNodes[index], node, prev),
       );
+      this.didUpdate?.(prev.props);
     } else if (next?.childNodes.length) {
       next.childNodes.forEach((node, index) =>
         this.__compareNodes(prev?.childNodes[index], node, prev),
@@ -79,13 +83,21 @@ export class Element extends HTMLElement {
   __attachEventListeners(nodes: Node[], eventHandlers: EventHandlers) {
     Array.from(nodes).map((element) => {
       if (element && 'getAttribute' in element) {
-        const handlerName = element.getAttribute('@onClick');
+        const onClickName = element.getAttribute('@onClick');
+        const onChangeName = element.getAttribute('@onChange');
         element.removeAttribute('@onClick');
+        element.removeAttribute('@onChange');
 
-        if (handlerName) {
+        if (onClickName) {
           element.addEventListener(
             'click',
-            eventHandlers[handlerName].bind(this),
+            eventHandlers[onClickName].bind(this),
+          );
+        }
+        if (onChangeName) {
+          element.addEventListener(
+            'input',
+            eventHandlers[onChangeName].bind(this),
           );
         }
         this.__attachEventListeners(
@@ -97,15 +109,32 @@ export class Element extends HTMLElement {
   }
 
   connectedCallback() {
-    this.state = new Proxy(this.state || {}, {
-      set: (target, prop: string, value) => {
-        target[prop] = value;
-        this.render(this.props).nodes.forEach((node, index) =>
-          this.__compareNodes(this.shadowRoot?.childNodes[index], node, this),
-        );
-        return value;
+    const self = this;
+    const validator: ProxyHandler<{ [key: string]: object }> = {
+      get(target, key: string) {
+        if (typeof target[key] === 'object' && target[key] !== null) {
+          return new Proxy(target[key], validator);
+        } else {
+          return target[key];
+        }
       },
-    });
+      set(target, key: string, value) {
+        target[key] = value;
+        self
+          .render(self.props)
+          .nodes.forEach((node, index) =>
+            self.__compareNodes(
+              self.shadowRoot?.childNodes[index],
+              node,
+              self.shadowRoot,
+            ),
+          );
+        self.didUpdate?.(self.props);
+        return true;
+      },
+    };
+
+    this.state = new Proxy(this.state || {}, validator);
 
     this.props = Object.fromEntries(
       this.getAttributeNames().map((attrName) => [
@@ -124,5 +153,7 @@ export class Element extends HTMLElement {
     for (const node of nodes) {
       this.shadowRoot?.appendChild(node);
     }
+
+    this.didRender?.();
   }
 }

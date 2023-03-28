@@ -1,4 +1,4 @@
-import { html, Element } from '../../../htme/dist/index.js';
+import { html, Element } from '../../../lib/dist/index.js';
 import '../button/button.js';
 
 class AppElement extends Element {
