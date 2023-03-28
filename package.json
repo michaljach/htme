@@ -7,6 +7,8 @@
   },
   "devDependencies": {
     "@nrwl/nx-cloud": "latest",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.36.0",
@@ -18,5 +20,8 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "rollup": "^3.20.2"
+  }
 }
