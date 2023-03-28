@@ -32,7 +32,7 @@ import { html, Element } from '';
 
 class AppElement extends Element {
   render() {
-    return html` <p>Hello World!</p> `;
+    return html`<p>Hello World!</p>`;
   }
 }
 
@@ -61,6 +61,41 @@ class UserElement extends Element {
     return html`
       <p>Hello ${this.state.user.name}</p>
       <button @onClick="${this.onClick}">Change name</button>
+    `;
+  }
+}
+
+customElements.define('user-element', UserElement);
+```
+
+## Composing Elements example
+
+`avatar.js`
+
+```js
+import { html, Element } from '';
+
+class AvatarElement extends Element {
+  render() {
+    return html`<img src="avatar.png" />`;
+  }
+}
+
+customElements.define('avatar-element', AvatarElement);
+```
+
+`user.js`
+
+```js
+import { html, Element } from '';
+
+class UserElement extends Element {
+  render() {
+    return html`
+      <div>
+        <avatar-element></avatar-element>
+        <p>Hello Michael !</p>
+      </div>
     `;
   }
 }
