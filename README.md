@@ -107,15 +107,26 @@ customElements.define('user-element', UserElement);
 
 ### Element Lifecycle
 
-- `constructor`
-- `didRender`
-- `didUpdate`
-- `didDestroy`
-- `render`
+| Method        | Params  | Description                                   |
+| ------------- | ------- | --------------------------------------------- |
+| `constructor` | none    | Standard Web Component constructor.           |
+| `render`      | `props` | Properties passed from parent element.        |
+| `didRender`   | none    | Fired after element is added to DOM tree.     |
+| `didUpdate`   | `props` | Fired each time props or state are updated.   |
+| `didDestroy`  | none    | Fired after element is removed from DOM tree. |
 
 ### Element Events
 
+Example:
+
+```
+<button @onClick="${this.onClick}">Button</button>
+```
+
+**Events:**
+
 - `@onClick`
+- `@onChange`
 
 ## Development
 
