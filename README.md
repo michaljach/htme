@@ -125,8 +125,10 @@ Example:
 
 **Events:**
 
-- `@onClick`
-- `@onChange`
+| Event       | Params       | Description                                                      |
+| ----------- | ------------ | ---------------------------------------------------------------- |
+| `@onClick`  | `MouseEvent` | Event fired on mouse press. Used for example on buttons.         |
+| `@onChange` | `Event`      | Event fired on key press. Used for example on inputs, dropdowns. |
 
 ## Development
 
