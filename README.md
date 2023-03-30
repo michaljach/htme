@@ -8,7 +8,8 @@ Fast, native, minimal, scalable, native Web Components framework.
 - no package managment and dependency needed (no npm)
 - true to the browser
 
-Demo:
+#### Demo
+
 [![Edit sleepy-cache-gusu8w](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/sleepy-cache-gusu8w?fontsize=14&hidenavigation=1&theme=dark)
 
 ## Basic usage
