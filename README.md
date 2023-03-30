@@ -8,6 +8,9 @@ Fast, native, minimal, scalable, native Web Components framework.
 - no package managment and dependency needed (no npm)
 - true to the browser
 
+Demo:
+[![Edit sleepy-cache-gusu8w](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/sleepy-cache-gusu8w?fontsize=14&hidenavigation=1&theme=dark)
+
 ## Basic usage
 
 `index.html`
@@ -28,7 +31,10 @@ Fast, native, minimal, scalable, native Web Components framework.
 `app.js`
 
 ```js
-import { html, Element } from '';
+import {
+  html,
+  Element,
+} from 'https://cdn.jsdelivr.net/npm/htme@0.1.3/dist/index.js';
 
 class AppElement extends Element {
   render() {
@@ -44,7 +50,10 @@ customElements.define('app-element', AppElement);
 `element.js`
 
 ```js
-import { html, Element } from '';
+import {
+  html,
+  Element,
+} from 'https://cdn.jsdelivr.net/npm/htme@0.1.3/dist/index.js';
 
 class UserElement extends Element {
   state = {
@@ -73,7 +82,10 @@ customElements.define('user-element', UserElement);
 `avatar.js`
 
 ```js
-import { html, Element } from '';
+import {
+  html,
+  Element,
+} from 'https://cdn.jsdelivr.net/npm/htme@0.1.3/dist/index.js';
 
 class AvatarElement extends Element {
   render() {
@@ -87,7 +99,10 @@ customElements.define('avatar-element', AvatarElement);
 `user.js`
 
 ```js
-import { html, Element } from '';
+import {
+  html,
+  Element,
+} from 'https://cdn.jsdelivr.net/npm/htme@0.1.3/dist/index.js';
 
 class UserElement extends Element {
   render() {
@@ -110,7 +125,7 @@ customElements.define('user-element', UserElement);
 | Method        | Params  | Description                                   |
 | ------------- | ------- | --------------------------------------------- |
 | `constructor` | none    | Standard Web Component constructor.           |
-| `render`      | `props` | Properties passed from parent element.        |
+| `render`      | `props` | Fired on initial and every element render.    |
 | `didRender`   | none    | Fired after element is added to DOM tree.     |
 | `didUpdate`   | `props` | Fired each time props or state are updated.   |
 | `didDestroy`  | none    | Fired after element is removed from DOM tree. |
